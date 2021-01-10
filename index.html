@@ -14,29 +14,68 @@
     ></script>
   </head>
   <body>
-    <div x-data="{plates: []}">
+    <div x-data="{plates: [], bar: 0}">
       <div>
-        <button @click="add(plates, '5')">+5</button>
-        <button @click="remove(plates, '5')">-5</button>
-      </div>
-      <div>
-        <button @click="add(plates, '10')">+10</button>
-        <button @click="remove(plates, '10')">-10</button>
-      </div>
+        <input x-model="bar" type="radio" id="sz" name="bar" value="10" />
+        <label for="sz">SZ-Barbell</label><br />
 
-      <p>One Side</p>
-      <p x-text="plates.sort(function(a, b){return a-b}).toString()"></p>
+        <input x-model="bar" type="radio" id="training" name="bar" value="15" />
+        <label for="training">Training Barbell (15kg) </label><br />
+
+        <input x-model="bar" type="radio" id="comp" name="bar" value="20" />
+        <label for="comp">Competition Barbell (20kg) </label><br />
+      </div>
+      <div>
+        <button @click="addPlate(plates, 5)">+5</button>
+        <button @click="removePlate(plates, 5)">-5</button>
+      </div>
+      <div>
+        <button @click="addPlate(plates, 10)">+10</button>
+        <button @click="removePlate(plates, 10)">-10</button>
+      </div>
+      <div>
+        <p>
+          Barbell:
+          <span x-text="bar"></span>
+        </p>
+        <p>
+          Plates one Side:
+          <span
+            x-text="plates.sort(function(a, b){return a+b}).toString()"
+          ></span>
+        </p>
+        <p>
+          Weight one Side:
+          <span x-text="calculateOneSide(plates)"></span>
+        </p>
+        <p>
+          Total:
+          <span x-text="calculateTotal(bar, plates)"></span>
+        </p>
+      </div>
     </div>
     <script>
-      function add(plates, weight) {
+      function addPlate(plates, weight) {
         plates.push(weight);
       }
-      function remove(plates, weight) {
+
+      function removePlate(plates, weight) {
         var index = plates.indexOf(weight);
         if (index < 0) {
           return;
         }
         plates.splice(index, 1);
+      }
+
+      function calculateOneSide(plates) {
+        return plates.reduce(add, 0);
+      }
+
+      function calculateTotal(bar, plates) {
+        return add(parseInt(bar), 2 * calculateOneSide(plates));
+      }
+      function add(a, b) {
+        return a + b;
       }
     </script>
   </body>
