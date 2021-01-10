@@ -1,0 +1,7 @@
+spec:
+  name: plate-calculator
+  static_sites:
+    - git:
+        branch: main
+        repo_clone_url: https://github.com/akoepcke/plateCalculator.git
+      name: plate-calculator
