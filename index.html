@@ -13,80 +13,92 @@
       defer
     ></script>
   </head>
-  <body>
+  <body class="bg-gray-900 text-gray-100">
     <div
+      class="max-w-3xl mx-auto p-8 space-y-8"
       x-data="{
           plates: [],
           bar: 0,
           availableBars: [
-            {label: 'none - calculate weight for one side, no bar', value: 0},
-            {label: 'SZ-Barbell (10kg)', value: 10},
-            {label: 'Training Barbell (15kg)', value: 15},
-            {label: 'Competition Barbell (20kg)', value: 20},
+            {label: '0 kg - no bar, one side only', value: 0},
+            {label: '10 kg - SZ-Barbell', value: 10},
+            {label: '15 kg - Training Barbell', value: 15},
+            {label: '20 kg - Competition Barbell', value: 20},
             ],
             availablePlates: [
-                {value:0.5,  bg_color:'white'},
-                {value:1,  bg_color:'green'},
-                {value:1.5,  bg_color:'yellow'},
-                {value:2,  bg_color:'blue'},
-                {value:2.5,  bg_color:'red'},
-                {value:5,  bg_color:'white'},
-                {value:10,  bg_color:'green'},
-                {value:15,  bg_color:'yellow'},
-                {value:20,  bg_color:'blue'},
-                {value:25,  bg_color:'red'},
+                {value:0.5,  bg_color:'white', height:'14'},
+                {value:1,  bg_color:'green', height:'14'},
+                {value:1.5,  bg_color:'yellow', height:'14'},
+                {value:2,  bg_color:'blue', height:'14'},
+                {value:2.5,  bg_color:'red', height:'14'},
+                {value:5,  bg_color:'white', height:'20'},
+                {value:10,  bg_color:'green', height:'20'},
+                {value:15,  bg_color:'yellow', height:'20'},
+                {value:20,  bg_color:'blue', height:'20'},
+                {value:25,  bg_color:'red', height:'20'},
             ]
     }"
     >
       <div>
-        <template x-for="item in availableBars">
-          <div>
-            <input
-              x-model="bar"
-              type="radio"
-              id="none"
-              name="bar"
-              :value="item.value"
-            />
-            <label for="none" x-text="item.label"></label><br />
-          </div>
-        </template>
+        <h2 class="font-semibold text-2xl text-pink-600">Select barbell</h2>
+        <div class="space-y-2">
+          <template x-for="item in availableBars">
+            <div>
+              <input
+                x-model="bar"
+                type="radio"
+                id="none"
+                name="bar"
+                :value="item.value"
+              />
+              <label for="none" x-text="item.label" class="ml-4"></label><br />
+            </div>
+          </template>
+        </div>
       </div>
+
       <div>
-        <template x-for="item in availablePlates">
-          <div class="flex">
-            <p x-text="item.value"></p>
-            <button @click="addPlate(plates, item.value)">+</button>
-            <button @click="removePlate(plates, item.value)">-</button>
-          </div>
-        </template>
+        <h2 class="font-semibold text-2xl text-pink-600">Add plates</h2>
+        <div>
+          <template x-for="item in availablePlates">
+            <div class="flex">
+              <p x-text="item.value"></p>
+              <button @click="addPlate(plates, item.value)">+</button>
+              <button @click="removePlate(plates, item.value)">-</button>
+            </div>
+          </template>
+        </div>
       </div>
-      <div>
-        <p>
-          Barbell:
-          <span x-text="bar"></span>
-        </p>
-        <p>
-          Plates one Side:
-          <span
-            x-text="plates.sort(function(a, b){return b-a}).toString()"
-          ></span>
-          <div class="flex">
-              <template x-for="item in plates.sort(function(a, b){return b-a})">
-                  <div x-html="getPlateDesign(item, availablePlates)"></div>
-              </template>
-          </div>
-        </p>
-        <p>
-          Weight one Side:
-          <span x-text="calculateOneSide(plates)"></span>
-        </p>
-        <template x-if="bar>0">
-          <p>
-            Total:
-            <span x-text="calculateTotal(bar, plates)"></span>
+
+      <div class="flex items-end">
+        <h3 class="font-semibold text-2xl text-pink-600">Total</h3>
+        <template x-if="bar==0">
+          <p class="flex-grow text-center">
+            <span
+              x-text="calculateOneSide(plates)"
+              class="text-3xl text"
+            ></span>
+            kg
           </p>
         </template>
+        <template x-if="bar>0">
+          <p class="flex-grow text-center">
+            <span
+              x-text="calculateTotal(bar, plates)"
+              class="text-3xl text"
+            ></span>
+            kg
+          </p>
+        </template>
+      </div>
+
+      <div>
+        <h2 class="sr-only">Plates</h2>
+        <div class="flex items-center space-x-1">
+          <template x-for="item in plates.sort(function(a, b){return b-a})">
+            <div x-html="getPlateDesign(item, availablePlates)"></div>
+          </template>
+        </div>
       </div>
     </div>
 
@@ -115,15 +127,20 @@
         return a + b;
       }
 
-      function getPlateDesign(weight, availablePlates){
-        var selectedPlate = availablePlates.find(function(item){
-            return item.value === weight
-        },weight)
+      function getPlateDesign(weight, availablePlates) {
+        var selectedPlate = availablePlates.find(function (item) {
+          return item.value === weight;
+        }, weight);
 
-
-          var html = "<div style='background-color:"+ selectedPlate.bg_color +"'>" + selectedPlate.value + "</div>";
-
-          return html
+        var html =
+          "<div class='flex items-center justify-center h-" +
+          selectedPlate.height +
+          " w-6 text-black border border-black' style='background-color:" +
+          selectedPlate.bg_color +
+          "'>" +
+          selectedPlate.value +
+          "</div>";
+        return html;
       }
     </script>
   </body>
