@@ -16,19 +16,27 @@
   <body>
     <div x-data="{plates: []}">
       <div>
-        <button @click="plates.push('5')">+5</button>
-        <button @click="plates.splice(plates.indexOf('5'), 1)">-5</button>
+        <button @click="add(plates, '5')">+5</button>
+        <button @click="remove(plates, '5')">-5</button>
       </div>
       <div>
-        <button @click="plates.push('10')">+10</button>
-        <button @click="plates.splice(plates.indexOf('10'), 1)">-10</button>
+        <button @click="add(plates, '10')">+10</button>
+        <button @click="remove(plates, '10')">-10</button>
       </div>
 
-      <p x-text="plates.toString()"></p>
+      <p>One Side</p>
+      <p x-text="plates.sort(function(a, b){return a-b}).toString()"></p>
     </div>
     <script>
-      function add() {
-        plates.push("5");
+      function add(plates, weight) {
+        plates.push(weight);
+      }
+      function remove(plates, weight) {
+        var index = plates.indexOf(weight);
+        if (index < 0) {
+          return;
+        }
+        plates.splice(index, 1);
       }
     </script>
   </body>
