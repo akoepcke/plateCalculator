@@ -59,12 +59,24 @@
 
       <div>
         <h2 class="font-semibold text-2xl text-pink-600">Add plates</h2>
-        <div>
+        <div class="grid grid-cols-2 gap-2 mt-3">
           <template x-for="item in availablePlates">
-            <div class="flex">
-              <p x-text="item.value"></p>
-              <button @click="addPlate(plates, item.value)">+</button>
-              <button @click="removePlate(plates, item.value)">-</button>
+            <div class="flex items-center space-x-1 justify-center">
+              <button
+                @click="addPlate(plates, item.value)"
+                class="px-3 py-1 rounded bg-gray-600"
+              >
+                +
+              </button>
+              <div>
+                <p x-text="item.value" class="w-8 text-center"></p>
+              </div>
+              <button
+                @click="removePlate(plates, item.value)"
+                class="px-3 py-1 rounded bg-gray-600"
+              >
+                -
+              </button>
             </div>
           </template>
         </div>
