@@ -6,7 +6,7 @@ A simple plate calculator that calculates in kg, and gives you your total depend
 
 # Config
 
-If you want to adjust barbells and plates that are available to you, edit the followong array in index.html, with bg_color being a [https://www.w3schools.com/cssref/css_colors.asp](CSS color string) or HEX color code, and height being the displayed plate height in rem.
+If you want to adjust barbells and plates that are available to you, edit the followong array in index.html, with bg_color being a [CSS color string](https://www.w3schools.com/cssref/css_colors.asp) or HEX color code, and height being the displayed plate height in rem.
 
 ```
 availableBars: [
