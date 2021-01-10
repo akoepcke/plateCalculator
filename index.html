@@ -15,7 +15,7 @@
   </head>
   <body class="bg-gray-900 text-gray-100">
     <div
-      class="max-w-3xl mx-auto p-8 space-y-8"
+      class="max-w-2xl mx-auto p-8 space-y-8"
       x-data="{
         plates: [],
         bar: 0,
@@ -58,24 +58,29 @@
       </div>
 
       <div>
-        <h2 class="font-semibold text-2xl text-pink-600">Add plates</h2>
+        <div class="flex items-baseline justify-between">
+          <h2 class="font-semibold text-2xl text-pink-600">Add plates</h2>
+          <button @click="plates=[]" class="border border-gray-700 px-2 py-1">
+            Clear
+          </button>
+        </div>
         <div class="grid grid-cols-2 gap-2 mt-3">
           <template x-for="item in availablePlates">
             <div class="flex items-center space-x-1 justify-center">
-              <button
-                @click="addPlate(plates, item.value)"
-                class="px-3 py-1 rounded bg-gray-600"
-              >
-                +
-              </button>
-              <div>
-                <p x-text="item.value" class="w-8 text-center"></p>
-              </div>
               <button
                 @click="removePlate(plates, item.value)"
                 class="px-3 py-1 rounded bg-gray-600"
               >
                 -
+              </button>
+              <div>
+                <p x-text="item.value" class="w-8 text-center"></p>
+              </div>
+              <button
+                @click="addPlate(plates, item.value)"
+                class="px-3 py-1 rounded bg-gray-600"
+              >
+                +
               </button>
             </div>
           </template>
