@@ -14,28 +14,41 @@
     ></script>
   </head>
   <body>
-    <div x-data="{plates: [], bar: 0}">
+    <div
+      x-data="{
+          plates: [],
+          bar: 0,
+          availableBars: [
+        {label: 'none - calculate weight for one side, no bar', value: 0},
+        {label: 'SZ-Barbell (10kg)', value: 10},
+        {label: 'Training Barbell (15kg)', value: 15},
+        {label: 'Competition Barbell (20kg)', value: 20},
+        ],
+        availablePlates: [1.25, 2.5, 5, 10, 15, 20, 25, 45]
+    }"
+    >
       <div>
-        <input x-model="bar" type="radio" id="none" name="bar" value="0" />
-        <label for="none">none - calculate weight for one side, no bar</label
-        ><br />
-
-        <input x-model="bar" type="radio" id="sz" name="bar" value="10" />
-        <label for="sz">SZ-Barbell (10kg)</label><br />
-
-        <input x-model="bar" type="radio" id="training" name="bar" value="15" />
-        <label for="training">Training Barbell (15kg) </label><br />
-
-        <input x-model="bar" type="radio" id="comp" name="bar" value="20" />
-        <label for="comp">Competition Barbell (20kg) </label><br />
+        <template x-for="item in availableBars">
+          <div>
+            <input
+              x-model="bar"
+              type="radio"
+              id="none"
+              name="bar"
+              :value="item.value"
+            />
+            <label for="none" x-text="item.label"></label><br />
+          </div>
+        </template>
       </div>
       <div>
-        <button @click="addPlate(plates, 5)">+5</button>
-        <button @click="removePlate(plates, 5)">-5</button>
-      </div>
-      <div>
-        <button @click="addPlate(plates, 10)">+10</button>
-        <button @click="removePlate(plates, 10)">-10</button>
+        <template x-for="item in availablePlates">
+          <div class="flex">
+            <p x-text="item"></p>
+            <button @click="addPlate(plates, item)">+</button>
+            <button @click="removePlate(plates, item)">-</button>
+          </div>
+        </template>
       </div>
       <div>
         <p>
