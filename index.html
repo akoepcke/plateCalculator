@@ -16,8 +16,12 @@
   <body>
     <div x-data="{plates: [], bar: 0}">
       <div>
+        <input x-model="bar" type="radio" id="none" name="bar" value="0" />
+        <label for="none">none - calculate weight for one side, no bar</label
+        ><br />
+
         <input x-model="bar" type="radio" id="sz" name="bar" value="10" />
-        <label for="sz">SZ-Barbell</label><br />
+        <label for="sz">SZ-Barbell (10kg)</label><br />
 
         <input x-model="bar" type="radio" id="training" name="bar" value="15" />
         <label for="training">Training Barbell (15kg) </label><br />
@@ -48,10 +52,12 @@
           Weight one Side:
           <span x-text="calculateOneSide(plates)"></span>
         </p>
-        <p>
-          Total:
-          <span x-text="calculateTotal(bar, plates)"></span>
-        </p>
+        <template x-if="bar>0">
+          <p>
+            Total:
+            <span x-text="calculateTotal(bar, plates)"></span>
+          </p>
+        </template>
       </div>
     </div>
     <script>
@@ -72,8 +78,9 @@
       }
 
       function calculateTotal(bar, plates) {
-        return add(parseInt(bar), 2 * calculateOneSide(plates));
+        return add(parseFloat(bar), 2 * calculateOneSide(plates));
       }
+
       function add(a, b) {
         return a + b;
       }
