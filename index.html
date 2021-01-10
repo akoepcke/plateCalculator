@@ -19,12 +19,23 @@
           plates: [],
           bar: 0,
           availableBars: [
-        {label: 'none - calculate weight for one side, no bar', value: 0},
-        {label: 'SZ-Barbell (10kg)', value: 10},
-        {label: 'Training Barbell (15kg)', value: 15},
-        {label: 'Competition Barbell (20kg)', value: 20},
-        ],
-        availablePlates: [1.25, 2.5, 5, 10, 15, 20, 25, 45]
+            {label: 'none - calculate weight for one side, no bar', value: 0},
+            {label: 'SZ-Barbell (10kg)', value: 10},
+            {label: 'Training Barbell (15kg)', value: 15},
+            {label: 'Competition Barbell (20kg)', value: 20},
+            ],
+            availablePlates: [
+                {value:0.5,  bg_color:'white'},
+                {value:1,  bg_color:'green'},
+                {value:1.5,  bg_color:'yellow'},
+                {value:2,  bg_color:'blue'},
+                {value:2.5,  bg_color:'red'},
+                {value:5,  bg_color:'white'},
+                {value:10,  bg_color:'green'},
+                {value:15,  bg_color:'yellow'},
+                {value:20,  bg_color:'blue'},
+                {value:25,  bg_color:'red'},
+            ]
     }"
     >
       <div>
@@ -44,9 +55,9 @@
       <div>
         <template x-for="item in availablePlates">
           <div class="flex">
-            <p x-text="item"></p>
-            <button @click="addPlate(plates, item)">+</button>
-            <button @click="removePlate(plates, item)">-</button>
+            <p x-text="item.value"></p>
+            <button @click="addPlate(plates, item.value)">+</button>
+            <button @click="removePlate(plates, item.value)">-</button>
           </div>
         </template>
       </div>
@@ -62,7 +73,7 @@
           ></span>
           <div class="flex">
               <template x-for="item in plates.sort(function(a, b){return b-a})">
-                  <div x-html="getPlateDesign(item)"></div>
+                  <div x-html="getPlateDesign(item, availablePlates)"></div>
               </template>
           </div>
         </p>
@@ -104,27 +115,13 @@
         return a + b;
       }
 
-      function getPlateDesign(plate){
-          var bg_color;
-          var text_color;
-          var html;
+      function getPlateDesign(weight, availablePlates){
+        var selectedPlate = availablePlates.find(function(item){
+            return item.value === weight
+        },weight)
 
-          switch (plate) {
-              case 1.25:
-                  bg_color='blue'
-                  text_color="white"
-                  break;
-              case 2.5:
-                  bg_color='white'
-                  text_color="black"
-                  break;
 
-              default:
-                  bg_color="black"
-                  text_color="white"
-                  break;
-          }
-          html = "<div style='background-color:"+ bg_color +";color:"+text_color+"'>" + plate + "</div>";
+          var html = "<div style='background-color:"+ selectedPlate.bg_color +"'>" + selectedPlate.value + "</div>";
 
           return html
       }
