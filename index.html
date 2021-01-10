@@ -47,11 +47,11 @@
               <input
                 x-model="bar"
                 type="radio"
-                id="none"
+                :id="item.value"
                 name="bar"
                 :value="item.value"
               />
-              <label for="none" x-text="item.label" class="ml-4"></label><br />
+              <label :for="item.value" x-text="item.label" class="ml-4"></label>
             </div>
           </template>
         </div>
