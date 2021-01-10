@@ -60,6 +60,11 @@
           <span
             x-text="plates.sort(function(a, b){return b-a}).toString()"
           ></span>
+          <div class="flex">
+              <template x-for="item in plates.sort(function(a, b){return b-a})">
+                  <div x-html="getPlateDesign(item)"></div>
+              </template>
+          </div>
         </p>
         <p>
           Weight one Side:
@@ -73,6 +78,7 @@
         </template>
       </div>
     </div>
+
     <script>
       function addPlate(plates, weight) {
         plates.push(weight);
@@ -96,6 +102,31 @@
 
       function add(a, b) {
         return a + b;
+      }
+
+      function getPlateDesign(plate){
+          var bg_color;
+          var text_color;
+          var html;
+
+          switch (plate) {
+              case 1.25:
+                  bg_color='blue'
+                  text_color="white"
+                  break;
+              case 2.5:
+                  bg_color='white'
+                  text_color="black"
+                  break;
+
+              default:
+                  bg_color="black"
+                  text_color="white"
+                  break;
+          }
+          html = "<div style='background-color:"+ bg_color +";color:"+text_color+"'>" + plate + "</div>";
+
+          return html
       }
     </script>
   </body>
