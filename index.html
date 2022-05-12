@@ -2,14 +2,19 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Plate Calculator</title>
+    <link rel="manifest" href="/site.webmanifest" />
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
   </head>
-  <body class="bg-gray-900 text-gray-100" style="accent-color: rgba(219, 39, 119)">
+  <body
+    class="bg-gray-900 text-gray-100"
+    style="accent-color: rgba(219, 39, 119); padding-top: env(safe-area-inset-top); -webkit-tap-highlight-color: transparent"
+  >
     <div
-      class="max-w-2xl mx-auto p-8 space-y-8"
+      class="max-w-2xl mx-auto p-8 space-y-8 padding-top: env(safe-area-inset-top);"
       x-data="{
         plates: [],
         bar: 0,
