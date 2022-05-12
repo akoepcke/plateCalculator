@@ -4,14 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Plate Calculator</title>
-    <link
-      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
-      defer
-    ></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
   </head>
   <body class="bg-gray-900 text-gray-100">
     <div
@@ -45,13 +39,7 @@
         <div class="space-y-2">
           <template x-for="item in availableBars">
             <div>
-              <input
-                x-model="bar"
-                type="radio"
-                :id="item.value"
-                name="bar"
-                :value="item.value"
-              />
+              <input x-model="bar" type="radio" :id="item.value" name="bar" :value="item.value" />
               <label :for="item.value" x-text="item.label" class="ml-4"></label>
             </div>
           </template>
@@ -61,28 +49,16 @@
       <div>
         <div class="flex items-baseline justify-between">
           <h2 class="font-semibold text-2xl text-pink-600">Add plates</h2>
-          <button @click="plates=[]" class="border border-gray-700 px-2 py-1">
-            Clear
-          </button>
+          <button @click="plates=[]" class="border border-gray-700 px-2 py-1">Clear</button>
         </div>
         <div class="grid grid-cols-2 gap-2 mt-3">
           <template x-for="item in availablePlates">
             <div class="flex items-center space-x-1 justify-center">
-              <button
-                @click="removePlate(plates, item.value)"
-                class="px-3 py-1 rounded bg-gray-600"
-              >
-                -
-              </button>
+              <button @click="removePlate(plates, item.value)" class="px-3 py-1 rounded bg-gray-600">-</button>
               <div>
                 <p x-text="item.value" class="w-8 text-center"></p>
               </div>
-              <button
-                @click="addPlate(plates, item.value)"
-                class="px-3 py-1 rounded bg-gray-600"
-              >
-                +
-              </button>
+              <button @click="addPlate(plates, item.value)" class="px-3 py-1 rounded bg-gray-600">+</button>
             </div>
           </template>
         </div>
@@ -92,19 +68,13 @@
         <h3 class="font-semibold text-2xl text-pink-600">Total</h3>
         <template x-if="bar==0">
           <p class="flex-grow text-center">
-            <span
-              x-text="calculateOneSide(plates)"
-              class="text-3xl text"
-            ></span>
+            <span x-text="calculateOneSide(plates)" class="text-3xl text"></span>
             kg
           </p>
         </template>
         <template x-if="bar>0">
           <p class="flex-grow text-center">
-            <span
-              x-text="calculateTotal(bar, plates)"
-              class="text-3xl text"
-            ></span>
+            <span x-text="calculateTotal(bar, plates)" class="text-3xl text"></span>
             kg
           </p>
         </template>
@@ -153,7 +123,7 @@
         var html =
           "<div class='flex items-center justify-center h-" +
           selectedPlate.height +
-          " w-6 text-black border border-black' style='background-color:" +
+          " w-9 text-black border border-black' style='background-color:" +
           selectedPlate.bg_color +
           "'>" +
           selectedPlate.value +
