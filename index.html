@@ -51,12 +51,12 @@
           <h2 class="font-semibold text-2xl text-pink-600">Add plates</h2>
           <button @click="plates=[]" class="border border-gray-700 px-2 py-1">Clear</button>
         </div>
-        <div class="grid grid-cols-2 gap-2 mt-3">
+        <div class="grid grid-cols-2 grid-rows-5 gap-2 mt-3" style="grid-auto-flow: column">
           <template x-for="item in availablePlates">
             <div class="flex items-center space-x-1 justify-center">
               <button @click="removePlate(plates, item.value)" class="px-3 py-1 rounded bg-gray-600">-</button>
               <div>
-                <p x-text="item.value" class="w-8 text-center"></p>
+                <p x-text="item.value" class="w-10 text-center tabular-nums"></p>
               </div>
               <button @click="addPlate(plates, item.value)" class="px-3 py-1 rounded bg-gray-600">+</button>
             </div>
